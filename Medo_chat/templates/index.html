@@ -1,10 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>MedoChat</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
+
 <body>
+
+<div class="container">
+
+    <h1>Welcome to MedoChat</h1>
+
+    <p>Connect with your friends instantly.</p>
+
+    <div class="buttons">
+
+        <a href="/login">
+            <button>Login</button>
+        </a>
+
+        <a href="/register">
+            <button>Sign Up</button>
+        </a>
+
+    </div>
+
+</div>
 
 </body>
 </html>
