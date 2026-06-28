@@ -1,7 +1,8 @@
 (async function hydrateCsrfToken(){
+    const isStaticPreview = window.location.protocol === "file:" || window.location.pathname.endsWith(".html");
     const staticForms = document.querySelectorAll("form[data-static-redirect]");
 
-    if (window.location.protocol === "file:") {
+    if (isStaticPreview) {
         staticForms.forEach((form) => {
             form.addEventListener("submit", (event) => {
                 event.preventDefault();
@@ -26,7 +27,7 @@
 
     const tokenInputs = document.querySelectorAll('input[name="csrf_token"]');
 
-    if (!tokenInputs.length || window.location.protocol === "file:") {
+    if (!tokenInputs.length || isStaticPreview) {
         return;
     }
 
@@ -43,7 +44,5 @@
         tokenInputs.forEach((input) => {
             input.value = payload.csrfToken || "";
         });
-    } catch (error) {
-        console.info("CSRF token unavailable until the Flask app is running.");
-    }
+    } catch (error) {}
 }());

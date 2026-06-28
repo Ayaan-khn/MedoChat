@@ -7,5 +7,5 @@ Flask-SocketIO
 Flask-SQLAlchemy
 Flask-WTF
 email-validator
-eventlet
+simple-websocket
 python-dotenv

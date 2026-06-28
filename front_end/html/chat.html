@@ -10,54 +10,218 @@
 
 <body>
     <main class="chat-layout">
-        <aside class="sidebar">
+        <aside class="left-sidebar" aria-label="MedoChat navigation and contacts">
             <a class="brand" href="index.html">
                 <img src="../../images/logo.png" alt="MedoChat Logo">
                 <span>MedoChat</span>
             </a>
 
-            <section class="profile-chip">
-                <div class="avatar">M</div>
-                <div>
-                    <strong>MedoChat User</strong>
-                    <p>@medochat</p>
+            <section class="profile-card" aria-label="Your profile">
+                <div class="avatar-ring online">
+                    <img id="profileAvatar" src="../../images/logo.png" alt="Your profile picture">
+                </div>
+                <div class="profile-meta">
+                    <strong id="profileName">Loading</strong>
+                    <span id="profileUsername">@user</span>
+                    <small id="profileId">ID loading</small>
+                </div>
+                <div class="profile-actions">
+                    <button class="ghost-btn" type="button" data-panel="profile">Edit Profile</button>
+                    <button class="ghost-btn" type="button" data-panel="settings">Settings</button>
                 </div>
             </section>
 
-            <section class="empty-list">
-                <h2>Conversations</h2>
-                <p>Your chats will appear here as messaging modules are added.</p>
+            <label class="search-box" for="globalSearch">
+                <span>Search</span>
+                <input id="globalSearch" type="search" placeholder="Users, friends, groups">
+            </label>
+
+            <nav class="app-nav" aria-label="Primary chat navigation">
+                <button class="nav-btn active" type="button" data-view="chats">Chats</button>
+                <button class="nav-btn" type="button" data-view="friends">Friends</button>
+                <button class="nav-btn" type="button" data-view="groups">Groups</button>
+                <button class="nav-btn" type="button" data-view="calls">Calls</button>
+                <button class="nav-btn" type="button" data-view="status">Status</button>
+                <button class="nav-btn" type="button" data-view="ai">AI</button>
+                <button class="nav-btn" type="button" data-panel="settings">Settings</button>
+                <form method="post" action="/auth/logout" data-static-redirect="index.html">
+                    <input type="hidden" name="csrf_token" value="">
+                    <button class="nav-btn danger" type="submit">Logout</button>
+                </form>
+            </nav>
+
+            <section class="sidebar-section">
+                <div class="section-heading">
+                    <h2>Friends</h2>
+                    <button class="icon-btn" id="openFriendModal" type="button" title="Add Friend">+</button>
+                </div>
+                <div class="tabs" role="tablist" aria-label="Friend filters">
+                    <button class="tab active" type="button" data-friend-filter="online">Online</button>
+                    <button class="tab" type="button" data-friend-filter="all">All</button>
+                    <button class="tab" type="button" data-friend-filter="pending">Pending</button>
+                    <button class="tab" type="button" data-friend-filter="blocked">Blocked</button>
+                </div>
+                <div class="contact-list" id="friendList" aria-live="polite"></div>
             </section>
 
-            <form method="post" action="/auth/logout" data-static-redirect="index.html">
-                <input type="hidden" name="csrf_token" value="">
-                <button type="submit">Logout</button>
-            </form>
+            <section class="sidebar-section">
+                <div class="section-heading">
+                    <h2>Groups</h2>
+                    <button class="icon-btn" id="openGroupModal" type="button" title="Create Group">+</button>
+                </div>
+                <div class="contact-list compact" id="groupList" aria-live="polite"></div>
+            </section>
         </aside>
 
-        <section class="conversation">
-            <header>
-                <div>
-                    <p class="eyebrow">MedoChat Core</p>
-                    <h1>Messaging foundation ready</h1>
+        <section class="center-chat" aria-label="Current conversation">
+            <header class="chat-header">
+                <button class="mobile-menu" id="toggleSidebar" type="button">Menu</button>
+                <div class="chat-identity">
+                    <div class="avatar-ring small online">
+                        <img id="activeAvatar" src="../../images/logo.png" alt="Selected chat avatar">
+                    </div>
+                    <div>
+                        <h1 id="activeTitle">MedoChat</h1>
+                        <p id="activeStatus">Select a friend or create a conversation</p>
+                    </div>
                 </div>
-                <span class="status">Online</span>
+                <div class="header-actions">
+                    <label class="message-search" for="messageSearch">
+                        <span>Search Messages</span>
+                        <input id="messageSearch" type="search" placeholder="Search messages">
+                    </label>
+                    <button class="icon-btn" type="button" data-call="voice">Voice</button>
+                    <button class="icon-btn" type="button" data-call="video">Video</button>
+                    <button class="icon-btn" type="button" data-call="screen">Share</button>
+                    <button class="icon-btn" id="toggleNotifications" type="button">Alerts <span id="notificationCount">0</span></button>
+                    <button class="icon-btn" id="toggleInfoPanel" type="button">Info</button>
+                </div>
             </header>
 
-            <div class="message-stack">
-                <article class="message incoming">
-                    <strong>Medo AI</strong>
-                    <p>Your account system is active. Real-time chat comes next.</p>
-                </article>
-            </div>
+            <section class="notification-menu" id="notificationMenu" hidden>
+                <div class="section-heading">
+                    <h2>Notifications</h2>
+                    <span id="notificationBadge">0 unread</span>
+                </div>
+                <div id="notificationList"></div>
+            </section>
 
-            <form class="composer">
-                <input aria-label="Message" placeholder="Message composer coming soon" disabled>
-                <button type="button" disabled>Send</button>
+            <section class="messages" id="messageList" aria-live="polite">
+                <div class="day-separator">Today</div>
+                <div class="system-card">
+                    Choose a conversation to begin. Friend search, group creation, notifications, calls, AI tools, and Socket.IO status are wired into this interface.
+                </div>
+            </section>
+
+            <div class="typing-indicator" id="typingIndicator" hidden>Someone is typing</div>
+
+            <form class="composer" id="messageComposer">
+                <div class="composer-tools">
+                    <button type="button" data-tool="emoji">Emoji</button>
+                    <button type="button" data-tool="gif">GIF</button>
+                    <button type="button" data-tool="sticker">Sticker</button>
+                    <label class="file-tool">
+                        Attach
+                        <input id="attachmentInput" type="file" multiple>
+                    </label>
+                    <button type="button" id="voiceNoteBtn">Voice</button>
+                    <button type="button" id="aiPanelBtn">AI</button>
+                </div>
+                <textarea id="messageInput" rows="1" placeholder="Message MedoChat"></textarea>
+                <button class="send-btn" type="submit">Send</button>
             </form>
         </section>
+
+        <aside class="right-panel" id="rightPanel" aria-label="Conversation information">
+            <section class="info-card" id="infoPanelContent">
+                <div class="avatar-ring large online">
+                    <img id="infoAvatar" src="../../images/logo.png" alt="Conversation avatar">
+                </div>
+                <h2 id="infoName">MedoChat</h2>
+                <p id="infoUsername">@medochat</p>
+                <small id="infoUserId">Ready</small>
+                <p id="infoBio">Your secure messaging workspace.</p>
+                <div class="badge-row">
+                    <span id="verifiedBadge">Email status</span>
+                    <span id="socketStatus">Socket connecting</span>
+                </div>
+                <div class="shared-grid">
+                    <button type="button">Shared Photos <strong id="sharedPhotos">0</strong></button>
+                    <button type="button">Shared Files <strong id="sharedFiles">0</strong></button>
+                    <button type="button">Shared Links <strong id="sharedLinks">0</strong></button>
+                </div>
+                <div class="panel-actions">
+                    <button type="button" data-action="mute">Mute</button>
+                    <button type="button" data-action="block">Block</button>
+                    <button type="button" data-action="report">Report</button>
+                </div>
+            </section>
+
+            <section class="info-card">
+                <h2>Medo AI</h2>
+                <div class="ai-actions">
+                    <button type="button" data-ai="summarize">Summarize</button>
+                    <button type="button" data-ai="rewrite">Rewrite</button>
+                    <button type="button" data-ai="translate">Translate</button>
+                    <button type="button" data-ai="english">Improve English</button>
+                    <button type="button" data-ai="explain">Explain</button>
+                    <button type="button" data-ai="continue">Continue Writing</button>
+                </div>
+            </section>
+
+            <section class="info-card">
+                <h2>Settings</h2>
+                <div class="settings-grid">
+                    <label>Appearance <select><option>Dark Phoenix</option></select></label>
+                    <label>Accent Color <input type="color" value="#2563eb"></label>
+                    <label>Font Size <input type="range" min="14" max="20" value="16"></label>
+                    <label><input type="checkbox" checked> Browser Notifications</label>
+                    <label><input type="checkbox" checked> Privacy Receipts</label>
+                    <label><input type="checkbox"> AI Suggestions</label>
+                </div>
+            </section>
+        </aside>
     </main>
-    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+
+    <div class="modal" id="friendModal" hidden>
+        <section class="modal-card" role="dialog" aria-modal="true" aria-labelledby="friendModalTitle">
+            <div class="section-heading">
+                <h2 id="friendModalTitle">Add Friend</h2>
+                <button class="icon-btn" type="button" data-close-modal>Close</button>
+            </div>
+            <form id="friendRequestForm">
+                <label for="friendQuery">Username or User ID</label>
+                <input id="friendQuery" name="query" autocomplete="off" required>
+                <button type="submit">Send Request</button>
+            </form>
+            <div id="userSearchResults"></div>
+        </section>
+    </div>
+
+    <div class="modal" id="groupModal" hidden>
+        <section class="modal-card" role="dialog" aria-modal="true" aria-labelledby="groupModalTitle">
+            <div class="section-heading">
+                <h2 id="groupModalTitle">Create Group</h2>
+                <button class="icon-btn" type="button" data-close-modal>Close</button>
+            </div>
+            <form id="groupForm">
+                <label for="groupName">Group Name</label>
+                <input id="groupName" name="name" required>
+                <label for="groupDescription">Description</label>
+                <textarea id="groupDescription" name="description" rows="3"></textarea>
+                <button type="submit">Create Group</button>
+            </form>
+        </section>
+    </div>
+
+    <nav class="bottom-nav" aria-label="Mobile navigation">
+        <button type="button" data-view="chats">Chats</button>
+        <button type="button" data-view="friends">Friends</button>
+        <button type="button" data-view="groups">Groups</button>
+        <button type="button" data-view="ai">AI</button>
+        <button type="button" data-panel="settings">Settings</button>
+    </nav>
+
     <script src="../js/auth.js"></script>
     <script src="../js/chat.js"></script>
 </body>

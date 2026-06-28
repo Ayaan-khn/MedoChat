@@ -16,6 +16,9 @@ def _bool_env(name, default=False):
 
 class BaseConfig:
     SECRET_KEY = os.getenv("SECRET_KEY", "dev-only-change-me")
+    LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")
+    LOG_FILE = os.getenv("LOG_FILE", str(BASE_DIR / "logs" / "medochat.log"))
+    UPLOAD_ROOT = os.getenv("UPLOAD_ROOT", str(BASE_DIR / "uploads"))
     SQLALCHEMY_DATABASE_URI = os.getenv(
         "DATABASE_URL",
         f"sqlite:///{(BASE_DIR / 'database' / 'medochat.sqlite3').as_posix()}",
@@ -29,6 +32,11 @@ class BaseConfig:
     REMEMBER_COOKIE_SECURE = _bool_env("REMEMBER_COOKIE_SECURE", False)
     MAX_CONTENT_LENGTH = 100 * 1024 * 1024
     SOCKETIO_CORS_ORIGINS = os.getenv("SOCKETIO_CORS_ORIGINS", "*")
+    SOCKETIO_ASYNC_MODE = os.getenv("SOCKETIO_ASYNC_MODE", "threading")
+    SOCKETIO_CLIENT_URL = os.getenv(
+        "SOCKETIO_CLIENT_URL",
+        "https://cdn.socket.io/4.7.5/socket.io.min.js",
+    )
     MEDO_AI_PROVIDER = os.getenv("MEDO_AI_PROVIDER", "disabled")
     MEDO_AI_API_KEY = os.getenv("MEDO_AI_API_KEY", "")
     RATELIMIT_STORAGE_URI = os.getenv("RATELIMIT_STORAGE_URI", "memory://")

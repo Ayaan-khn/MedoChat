@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from flask import Blueprint, redirect, render_template, send_from_directory, url_for
+from flask import Blueprint, current_app, redirect, render_template, send_from_directory, url_for
 from flask_login import login_required
 
 main_bp = Blueprint("main", __name__)
@@ -33,6 +33,11 @@ def legacy_signup():
     return redirect(url_for("auth.signup_page"))
 
 
+@main_bp.get("/forgot_password.html")
+def legacy_forgot_password():
+    return redirect(url_for("auth.forgot_password_page"))
+
+
 @main_bp.get("/about.html")
 def legacy_about():
     return redirect(url_for("main.about"))
@@ -56,3 +61,8 @@ def images(filename):
 @main_bp.get("/pdf/<path:filename>")
 def pdf(filename):
     return send_from_directory(PROJECT_ROOT / "pdf", filename)
+
+
+@main_bp.get("/socket.io-client.js")
+def socketio_client():
+    return redirect(current_app.config["SOCKETIO_CLIENT_URL"])
