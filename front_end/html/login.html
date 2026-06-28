@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | MedoChat</title>
+    <link rel="stylesheet" href="../css/auth.css">
+</head>
+
+<body>
+    <main class="auth-shell">
+        <section class="auth-panel">
+            <a class="brand" href="index.html">
+                <img src="../../images/logo.png" alt="MedoChat Logo">
+                <span>MedoChat</span>
+            </a>
+
+            <h1>Welcome back</h1>
+            <p class="subtitle">Sign in to continue your conversations.</p>
+
+            <div class="alerts" id="formAlerts" hidden></div>
+
+            <form method="post" action="/auth/login" data-static-redirect="chat.html">
+                <input type="hidden" name="csrf_token" value="">
+
+                <label for="username_or_email">Username or email</label>
+                <input id="username_or_email" name="username_or_email" autocomplete="username" required>
+
+                <label for="password">Password</label>
+                <input id="password" name="password" type="password" autocomplete="current-password" required>
+
+                <div class="row">
+                    <label class="checkbox">
+                        <input type="checkbox" name="remember">
+                        Remember me
+                    </label>
+                    <a href="forgot_password.html">Forgot password?</a>
+                </div>
+
+                <button type="submit">Login</button>
+            </form>
+
+            <p class="switch">New to MedoChat? <a href="signup.html">Create an account</a></p>
+        </section>
+    </main>
+    <script src="../js/auth.js"></script>
+</body>
+
+</html>

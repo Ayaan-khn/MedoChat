@@ -2,21 +2,14 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>MedoChat</title>
-
     <link rel="stylesheet" href="../css/index.css">
-
 </head>
 
 <body>
-
-    <!-- Floating Background -->
-    <div class="background">
-
+    <div class="background" aria-hidden="true">
         <div class="bubble bubble1"></div>
         <div class="bubble bubble2"></div>
         <div class="bubble bubble3"></div>
@@ -25,54 +18,31 @@
         <div class="bubble bubble6"></div>
         <div class="bubble bubble7"></div>
         <div class="bubble bubble8"></div>
-
     </div>
 
-    <!-- Main Container -->
-    <div class="container">
-
-        <!-- Hero Section -->
+    <main class="page-shell">
         <section class="hero">
-
-           <div class="logo-container">
-
-    <img src="../../images/logo.png" alt="MedoChat Logo" class="logo">
-
-    <h1>MedoChat</h1>
-
-</div>
-
-            <p class="tagline">
-                Connect. Chat. Stay Together.
-            </p>
-
-            <div class="buttons">
-
-                <button id="loginBtn">
-                    Login
-                </button>
-
-                <button id="signupBtn">
-                    Create Account
-                </button>
-
+            <div class="logo-container">
+                <img src="../../images/logo.png" alt="MedoChat Logo" class="logo">
+                <h1>MedoChat</h1>
             </div>
 
+            <p class="tagline">Connect. Chat. Stay Together.</p>
+
+            <div class="buttons">
+                <button id="loginBtn" type="button">Login</button>
+                <button id="signupBtn" type="button">Create Account</button>
+            </div>
         </section>
 
-        <!-- Information Cards -->
-        <section class="cards">
-
-            <!-- Fake Chat -->
-            <div class="chat-card">
-
-                <h2>💬 Live Chat</h2>
+        <section class="feature-grid" aria-label="MedoChat preview">
+            <article class="chat-card">
+                <h2>Live Chat</h2>
 
                 <div id="chatFeed">
-
                     <div class="message">
                         <span class="user">Mike</span>
-                        <p>Hey everyone 👋</p>
+                        <p>Hey everyone</p>
                     </div>
 
                     <div class="message">
@@ -82,36 +52,47 @@
 
                     <div class="message ai">
                         <span class="user">Medo AI</span>
-                        <p>Weather looks perfect ☀️</p>
+                        <p>Weather looks perfect.</p>
                     </div>
 
                     <div class="message">
                         <span class="user">Alex</span>
                         <p>Let's meet at 7 PM.</p>
                     </div>
-
                 </div>
+            </article>
 
-            </div>
+            <article class="weather-card">
+                <h2>Weather</h2>
+                <div class="temp">31 C</div>
+                <p class="city">Jhansi</p>
+                <p class="condition">Clear Sky</p>
 
-            <!-- Weather Card -->
-            <div class="weather-card">
+                <div class="weather-info">
+                    <div>
+                        <span>42%</span>
+                        <p>Humidity</p>
+                    </div>
 
-                <h2>🌤 Weather</h2>
+                    <div>
+                        <span>8 km/h</span>
+                        <p>Wind</p>
+                    </div>
 
-                <h1>31°C</h1>
+                    <div>
+                        <span>33 C</span>
+                        <p>Feels Like</p>
+                    </div>
 
-                <p>Jhansi</p>
-
-                <small>Clear Sky</small>
-
-            </div>
-
+                    <div>
+                        <span>5</span>
+                        <p>UV Index</p>
+                    </div>
+                </div>
+            </article>
         </section>
 
-        <!-- Statistics -->
-        <section class="stats">
-
+        <section class="stats" aria-label="Platform statistics">
             <div class="stat">
                 <h2>1,842</h2>
                 <p>Online Users</p>
@@ -131,66 +112,44 @@
                 <h2>24/7</h2>
                 <p>AI Support</p>
             </div>
-
         </section>
+    </main>
 
-      <footer class="footer">
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h2>MedoChat</h2>
+                <p>Connect. Chat. Stay Together.</p>
+            </div>
 
-    <div class="footer-content">
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="../../pdf/MedoChat_Privacy_Policy.pdf" target="_blank">Privacy Policy</a>
+                <a href="../../pdf/MedoChat_Terms_and_Conditions.pdf" target="_blank">Terms & Conditions</a>
+                <a href="../../pdf/MedoChat_Community_Guidelines.pdf" target="_blank">Community Guidelines</a>
+                <a href="../../pdf/MedoChat_Cookie_Policy.pdf" target="_blank">Cookie Policy</a>
+            </div>
 
-        <div class="footer-section">
+            <div class="footer-section">
+                <h3>Support</h3>
+                <p>support@medochat.com</p>
+                <a href="https://github.com/Ayaan-khn/MedoChat">Github</a>
+                <a href="about.html">About</a>
+            </div>
 
-            <h2>MedoChat</h2>
-
-            <p>
-                Connect. Chat. Stay Together.
-            </p>
-
+            <div class="footer-section">
+                <h3>Developer</h3>
+                <a href="https://www.linkedin.com/in/ayaan-khan-522985264/">Created by Mike</a>
+                <p>Version 1.0</p>
+            </div>
         </div>
 
-        <div class="footer-section">
-
-            <h3>Quick Links</h3>
-
-            <a href="#">Login</a>
-            <a href="#">Create Account</a>
-            <a href="about.html">About</a>
-
+        <div class="footer-bottom">
+            (c) 2026 MedoChat. All Rights Reserved.
         </div>
-
-        <div class="footer-section">
-
-            <h3>Support</h3>
-
-            <p>support@medochat.com</p>
-            <p>GitHub</p>
-            <p>Privacy Policy</p>
-
-        </div>
-
-        <div class="footer-section">
-
-            <h3>Developer</h3>
-
-            <p>Created by Mike</p>
-            <p>Version 1.0</p>
-
-        </div>
-
-    </div>
-
-    <div class="footer-bottom">
-
-        © 2026 MedoChat. All Rights Reserved.
-
-    </div>
-
-</footer>
-
-    </div>
+    </footer>
 
     <script src="../js/index.js"></script>
-
 </body>
 
 </html>

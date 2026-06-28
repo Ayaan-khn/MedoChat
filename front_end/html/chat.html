@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat | MedoChat</title>
+    <link rel="stylesheet" href="../css/chat.css">
+</head>
+
+<body>
+    <main class="chat-layout">
+        <aside class="sidebar">
+            <a class="brand" href="index.html">
+                <img src="../../images/logo.png" alt="MedoChat Logo">
+                <span>MedoChat</span>
+            </a>
+
+            <section class="profile-chip">
+                <div class="avatar">M</div>
+                <div>
+                    <strong>MedoChat User</strong>
+                    <p>@medochat</p>
+                </div>
+            </section>
+
+            <section class="empty-list">
+                <h2>Conversations</h2>
+                <p>Your chats will appear here as messaging modules are added.</p>
+            </section>
+
+            <form method="post" action="/auth/logout" data-static-redirect="index.html">
+                <input type="hidden" name="csrf_token" value="">
+                <button type="submit">Logout</button>
+            </form>
+        </aside>
+
+        <section class="conversation">
+            <header>
+                <div>
+                    <p class="eyebrow">MedoChat Core</p>
+                    <h1>Messaging foundation ready</h1>
+                </div>
+                <span class="status">Online</span>
+            </header>
+
+            <div class="message-stack">
+                <article class="message incoming">
+                    <strong>Medo AI</strong>
+                    <p>Your account system is active. Real-time chat comes next.</p>
+                </article>
+            </div>
+
+            <form class="composer">
+                <input aria-label="Message" placeholder="Message composer coming soon" disabled>
+                <button type="button" disabled>Send</button>
+            </form>
+        </section>
+    </main>
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/chat.js"></script>
+</body>
+
+</html>

@@ -28,17 +28,17 @@ const messages = [
 
     {
         user: "Mike",
-        text: "Hey everyone 👋"
+        text: "Hey everyone"
     },
 
     {
         user: "Sarah",
-        text: "Ready for tomorrow? ✈️"
+        text: "Ready for tomorrow?"
     },
 
     {
         user: "Medo AI",
-        text: "Rain expected tomorrow ☔"
+        text: "Rain expected tomorrow."
     },
 
     {
@@ -48,7 +48,7 @@ const messages = [
 
     {
         user: "Emily",
-        text: "Can't wait 😂"
+        text: "Can't wait."
     },
 
     {
@@ -58,7 +58,7 @@ const messages = [
 
     {
         user: "Medo AI",
-        text: "All systems online 🤖"
+        text: "All systems online."
     }
 
 ];

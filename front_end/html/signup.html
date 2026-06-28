@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account | MedoChat</title>
+    <link rel="stylesheet" href="../css/auth.css">
+</head>
+
+<body>
+    <main class="auth-shell">
+        <section class="auth-panel">
+            <a class="brand" href="index.html">
+                <img src="../../images/logo.png" alt="MedoChat Logo">
+                <span>MedoChat</span>
+            </a>
+
+            <h1>Create account</h1>
+            <p class="subtitle">Start building your private MedoChat identity.</p>
+
+            <div class="alerts" id="formAlerts" hidden></div>
+
+            <form method="post" action="/auth/signup" data-static-redirect="chat.html">
+                <input type="hidden" name="csrf_token" value="">
+
+                <label for="display_name">Display name</label>
+                <input id="display_name" name="display_name" autocomplete="name" required>
+
+                <label for="username">Username</label>
+                <input id="username" name="username" autocomplete="username" minlength="3" maxlength="32" required>
+
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" autocomplete="email" required>
+
+                <label for="password">Password</label>
+                <input id="password" name="password" type="password" autocomplete="new-password" minlength="8" required>
+
+                <label for="confirm_password">Confirm password</label>
+                <input id="confirm_password" name="confirm_password" type="password" autocomplete="new-password" minlength="8" required>
+
+                <button type="submit">Create Account</button>
+            </form>
+
+            <p class="switch">Already have an account? <a href="login.html">Login</a></p>
+        </section>
+    </main>
+    <script src="../js/auth.js"></script>
+</body>
+
+</html>
